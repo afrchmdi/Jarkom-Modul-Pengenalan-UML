@@ -215,7 +215,7 @@ uml_mconsole KARI halt
 Simpan script yang sudah dibuat kemudian jalankan dengan mengetikkan `bash bye.sh`
 
 # **PEMBAGIAN NID TUNTAP DAN NID DMZ**
-### KELAS A
+
   KELOMPOK | NID TUNTAP | NID DMZ
   ---------|------------|--------
   A1 | 10.151.72.8/30 | 10.151.73.16/29
