@@ -49,6 +49,27 @@ Contoh: `ssh -X b2@10.151.36.201`
 ### Membuat Topologi Jaringan yang Akan Digunakan
 // PERLU GANTI
 ![Topologi](/images/8.PNG) <br>
+
+### **PEMBAGIAN NID TUNTAP DAN NID DMZ**
+
+  KELOMPOK | NID TUNTAP | NID DMZ
+  ---------|------------|--------
+  A1 | 10.151.72.8/30 | 10.151.73.16/29
+  A2 | 10.151.72.12/30 | 10.151.73.24/29
+  A3 | 10.151.72.16/30 | 10.151.73.32/29
+  A4 | 10.151.72.20/30 | 10.151.73.40/29
+  A5 | 10.151.72.24/30 | 10.151.73.48/29
+  A6 | 10.151.72.28/30 | 10.151.73.56/29
+  A7 | 10.151.72.32/30 | 10.151.73.64/29
+
+**Keterangan:** <br>
+- **IP_eth0_BAKSO_tiap_kelompok** = NID_tuntap_tiap_kelompok + 2
+- **IP_tuntap_tiap_kelompok** = NID_tuntap_tiap_kelompok + 1
+- **IP_eth1_BAKSO_tiap_kelompok** = NID_DMZ_tiap_kelompok + 1
+- **IP_KATSU_tiap_kelompok** = NID_DMZ_tiap_kelompok + 2
+- **IP_PIZZA_tiap_kelompok** = NID_DMZ_tiap_kelompok + 3
+
+
 1. Setelah login, buat file script dengan ekstensi **.sh** yang akan digunakan untuk menyimpan script membuat **router, switch,** dan **klien**. Misalkan kita membuat file bernama **topologi.sh**.
 
 
@@ -109,26 +130,6 @@ xterm -T KARI -e linux ubd0=KARI,jarkom umid=KARI eth0=daemon,,,switch1 mem=96M
 // PERLU GANTI
 ![UML Sysctl](/images/12.PNG) <br>
 Lalu ketikka `sysctl -p` untuk mengaktifkan perubahan yang ada. Dengan mengaktifkan fungsi _**IP Forward**_ ini maka Linux nantinya dapat menentukan jalur mana yang dipilih untuk mencapai jaringan tujuan.
-
-
-### **PEMBAGIAN NID TUNTAP DAN NID DMZ**
-
-  KELOMPOK | NID TUNTAP | NID DMZ
-  ---------|------------|--------
-  A1 | 10.151.72.8/30 | 10.151.73.16/29
-  A2 | 10.151.72.12/30 | 10.151.73.24/29
-  A3 | 10.151.72.16/30 | 10.151.73.32/29
-  A4 | 10.151.72.20/30 | 10.151.73.40/29
-  A5 | 10.151.72.24/30 | 10.151.73.48/29
-  A6 | 10.151.72.28/30 | 10.151.73.56/29
-  A7 | 10.151.72.32/30 | 10.151.73.64/29
-
-**Keterangan:** <br>
-- **IP_eth0_BAKSO_tiap_kelompok** = NID_tuntap_tiap_kelompok + 2
-- **IP_tuntap_tiap_kelompok** = NID_tuntap_tiap_kelompok + 1
-- **IP_eth1_BAKSO_tiap_kelompok** = NID_DMZ_tiap_kelompok + 1
-- **IP_KATSU_tiap_kelompok** = NID_DMZ_tiap_kelompok + 2
-- **IP_PIZZA_tiap_kelompok** = NID_DMZ_tiap_kelompok + 3
 
 
 9. Setting IP pada setiap UML dengan mengetikkan `nano /etc/network/interfaces` Lalu setting IPnya sebagai berikut:
