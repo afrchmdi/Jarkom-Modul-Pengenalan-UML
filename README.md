@@ -43,8 +43,7 @@ Contoh: `ssh -X a1@10.151.36.201`
 - Saat pertama kali ssh pastikan allow connection dengan mengetikkan **yes**
 
 - Kemudian masukkan password kelompok kalian
-// PERLU GANTI
-![PuTTY Linux](/images/7.png) <br>
+![PuTTY Linux](/images/1.1.png) <br>
 
 ### Membuat Topologi Jaringan yang Akan Digunakan
 // PERLU GANTI
