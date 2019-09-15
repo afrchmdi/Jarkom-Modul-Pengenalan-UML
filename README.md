@@ -125,7 +125,6 @@ xterm -T SNORLAX -e linux ubd0=SNORLAX,jarkom umid=SNORLAX eth0=daemon,,,switch1
 
 
 8. Hilangkan tanda pagar (#) pada bagian `net.ipv4.ip_forward=1`
-// PERLU GANTI
 ![UML Sysctl](/images/5.1.png) <br>
 Lalu ketikka `sysctl -p` untuk mengaktifkan perubahan yang ada. Dengan mengaktifkan fungsi _**IP Forward**_ ini maka Linux nantinya dapat menentukan jalur mana yang dipilih untuk mencapai jaringan tujuan.
 
