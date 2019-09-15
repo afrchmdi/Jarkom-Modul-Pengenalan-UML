@@ -38,7 +38,7 @@ Jika berhasil maka akan muncul gambar seperti di bawah ini:
 
 ### 2. Untuk Linux
 - Buka terminal, kemudian ketikkan `ssh -X [nama kelompok]@[ip_sesuai_pembagian]`. <br>
-Contoh: `ssh -X b2@10.151.36.201`
+Contoh: `ssh -X a1@10.151.36.201`
 
 - Saat pertama kali ssh pastikan allow connection dengan mengetikkan **yes**
 
