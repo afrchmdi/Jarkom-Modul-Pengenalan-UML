@@ -63,11 +63,11 @@ Contoh: `ssh -X a1@10.151.36.201`
   A7 | 10.151.72.32/30 | 10.151.73.64/29
 
 **Keterangan:** <br>
-- **IP_eth0_BAKSO_tiap_kelompok** = NID_tuntap_tiap_kelompok + 2
+- **IP_eth0_PIKACHU_tiap_kelompok** = NID_tuntap_tiap_kelompok + 2
 - **IP_tuntap_tiap_kelompok** = NID_tuntap_tiap_kelompok + 1
-- **IP_eth1_BAKSO_tiap_kelompok** = NID_DMZ_tiap_kelompok + 1
-- **IP_KATSU_tiap_kelompok** = NID_DMZ_tiap_kelompok + 2
-- **IP_PIZZA_tiap_kelompok** = NID_DMZ_tiap_kelompok + 3
+- **IP_eth1_PIKACHU_tiap_kelompok** = NID_DMZ_tiap_kelompok + 1
+- **IP_ARTICUNO_tiap_kelompok** = NID_DMZ_tiap_kelompok + 2
+- **IP_MEWTWO_tiap_kelompok** = NID_DMZ_tiap_kelompok + 3
 
 
 1. Setelah login, buat file script dengan ekstensi **.sh** yang akan digunakan untuk menyimpan script membuat **router, switch,** dan **klien**. Misalkan kita membuat file bernama **topologi.sh**.
@@ -90,8 +90,7 @@ dengan topologi yang diminta.
 
 
 4. Untuk topologi sesuai yang ada pada gambar, maka sintaks untuk file **topologi.sh** adalah sebagai berikut:
-// PERLU GANTI
-![Script Topologi](/images/9.PNG) <br>
+![Script Topologi](/images/2.1.png) <br>
 
 ```shell
 # Switch
@@ -115,37 +114,35 @@ xterm -T SNORLAX -e linux ubd0=SNORLAX,jarkom umid=SNORLAX eth0=daemon,,,switch1
 
 
 5. Jalankan script **topologi.sh** dengan perintah `bash topologi.sh`
-// PERLU GANTI
-![UML Login](/images/10.PNG) <br>
+![UML Login](/images/3.1.png) <br>
 
 
 6. Setelah muncul gambar seperti di atas, login pada masing-masing UML dengan menggunakan **Username = root** dan **Password = praktikum**. <br>
-// PERLU GANTI
-![UML Login Success](/images/11.PNG) <br>
+![UML Login Success](/images/4.1.png) <br>
 
 
-7. Pada router **BAKSO** lakukan setting sysctl dengan mengetikkan perintah `nano /etc/sysctl.conf`
+7. Pada router **PIKACHU** lakukan setting sysctl dengan mengetikkan perintah `nano /etc/sysctl.conf`
 
 
 8. Hilangkan tanda pagar (#) pada bagian `net.ipv4.ip_forward=1`
 // PERLU GANTI
-![UML Sysctl](/images/12.PNG) <br>
+![UML Sysctl](/images/5.1.png) <br>
 Lalu ketikka `sysctl -p` untuk mengaktifkan perubahan yang ada. Dengan mengaktifkan fungsi _**IP Forward**_ ini maka Linux nantinya dapat menentukan jalur mana yang dipilih untuk mencapai jaringan tujuan.
 
 
 9. Setting IP pada setiap UML dengan mengetikkan `nano /etc/network/interfaces` Lalu setting IPnya sebagai berikut:
 
-**BAKSO (Sebagai Router)**
+**PIKACHU (Sebagai Router)**
 ```
 auto eth0
 iface eth0 inet static
-address 'IP_eth0_BAKSO_tiap_kelompok'
+address 'IP_eth0_PIKACHU_tiap_kelompok'
 netmask 255.255.255.252
 gateway 'IP_tuntap_tiap_kelompok'
 
 auto eth1
 iface eth1 inet static
-address 'IP_eth1_BAKSO_tiap_kelompok'
+address 'IP_eth1_PIKACHU_tiap_kelompok'
 netmask 255.255.255.248
 
 auto eth2
@@ -154,25 +151,25 @@ address 192.168.0.1
 netmask 255.255.255.0
 ```
 
-**KATSU (Sebagai DNS Server)**
+**ARTICUNO (Sebagai DNS Server)**
 ```
 auto eth0
 iface eth0 inet static
-address 'IP_KATSU_tiap_kelompok'
+address 'IP_ARTICUNO_tiap_kelompok'
 netmask 255.255.255.248
-gateway 'IP_eth1_BAKSO_tiap_kelompok'
+gateway 'IP_eth1_PIKACHU_tiap_kelompok'
 ```
 
-**PIZZA (Sebagai Web Server)**
+**MEWTWO (Sebagai Web Server)**
 ```
 auto eth0
 iface eth0 inet static
-address 'IP_PIZZA_tiap_kelompok'
+address 'IP_MEWTWO_tiap_kelompok'
 netmask 255.255.255.248
-gateway 'IP_eth1_BAKSO_tiap_kelompok'
+gateway 'IP_eth1_PIKACHU_tiap_kelompok'
 ```
 
-**SOTO (Sebagai Klien)**
+**PSYDUCK (Sebagai Klien)**
 ```
 auto eth0
 iface eth0 inet static
@@ -181,7 +178,7 @@ netmask 255.255.255.0
 gateway 192.168.0.1
 ```
 
-**KARI (Sebagai Klien)**
+**SNORLAX (Sebagai Klien)**
 ```
 auto eth0
 iface eth0 inet static
@@ -201,13 +198,11 @@ gateway 192.168.0.1
 
 
 11. Coba cek IP pada setiap UML dengan mengetikkan `ifconfig`. Jika sudah mendapatkan IP seperti gambar di bawah, maka setting IP yang kalian lakukan sudah benar.<br>
-// PERLU GANTI
-![UML IP](/images/13.PNG) <br>
+![UML IP](/images/7.1.png) <br>
 
 
-12. Topologi yang dibuat sudah bisa berjalan secara lokal, tetapi kita belum bisa mengakses jaringan keluar. Ketikkan **`iptables –t nat –A POSTROUTING –o eth0 –j MASQUERADE –s 192.168.0.0/16`** pada router BAKSO.
-// PERLU GANTI
-![UML Nat](/images/14.PNG) <br>
+12. Topologi yang dibuat sudah bisa berjalan secara lokal, tetapi kita belum bisa mengakses jaringan keluar. Ketikkan **`iptables –t nat –A POSTROUTING –o eth0 –j MASQUERADE –s 192.168.0.0/16`** pada router PIKACHU.
+![UML Nat](/images/8.1.png) <br>
 **Keterangan:**
 - **iptables:** iptables merupakan suatu tools dalam sistem operasi Linux yang berfungsi sebagai filter terhadap lalu lintas data. Dengan iptables inilah kita akan mengatur semua lalu lintas dalam komputer, baik yang masuk, keluar, maupun yang sekadar melewati komputer kita. Untuk penjelasan lebih lanjut nanti akan dibahas pada Modul 5.
 - **NAT (Network Address Translation):** Suatu metode penafsiran alamat jaringan yang digunakan untuk menghubungkan lebih dari satu komputer ke jaringan internet dengan menggunakan satu alamat IP.
@@ -216,8 +211,7 @@ gateway 192.168.0.1
 
 
 13. Coba tes di semua UML dengan melakukan ping ke jaringan luar. Sebagai contoh coba `ping google.com` untuk mengecek apakah setting yang dilakukan sudah benar atau belum.
-// PERLU GANTI
-![UML Ping](/images/15.PNG) <br>
+![UML Ping](/images/9.1.png) <br>
 
 
 14. Export proxy pada setiap UML dengan sintaks seperti di bawah ini: <br>
@@ -230,13 +224,14 @@ gateway 192.168.0.1
 
 
 16. Terakhir, untuk mematikan UML **JANGAN langsung diclose**. Ketikkan `halt` pada setiap UML untuk mematikannya. Alternatif lain adalah dengan membuat script dengan ekstensi **.sh** supaya mempermudah serta mempercepat kalian untuk mematikannya. Sebagai contoh buat file bernama **bye.sh** dan tuliskan sintaks seperti di bawah ini:
-![UML Bye](/images/16.PNG) <br>
+![UML Bye](/images/6.1.png) <br>
 ```
-uml_mconsole BAKSO halt
-uml_mconsole PIZZA halt
-uml_mconsole KATSU halt
-uml_mconsole SOTO halt
-uml_mconsole KARI halt
+uml_mconsole PIKACHU halt
+uml_mconsole ARTICUNO halt
+uml_mconsole MEWTWO halt
+uml_mconsole PSYDUCK halt
+uml_mconsole SNORLAX halt
+
 ```
 Simpan script yang sudah dibuat kemudian jalankan dengan mengetikkan `bash bye.sh`
 
