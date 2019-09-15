@@ -24,6 +24,7 @@ Silahkan mendownload dari link berikut -> https://sourceforge.net/projects/xming
 - Kemudian pilih Open. Jika muncul gambar seperti di bawah: <br>
 ![PuTTY Warning](/images/4.PNG) <br>
 Klik **Yes** maka kemudian akan tampil window untuk login.
+// PERLU GANTI
 ![PuTTY Login](/images/5.PNG) <br>
 
 - Login dengan username **[nama kelompok]** dan password **praktikum**. <br>
@@ -31,20 +32,22 @@ Contoh: <br>
 **Username -> a1** <br>
 **Password -> praktikum** <br>
 Jika berhasil maka akan muncul gambar seperti di bawah ini:
+// PERLU DIGANTI
 ![PuTTY Login Success](/images/6.PNG)
 
 
 ### 2. Untuk Linux
 - Buka terminal, kemudian ketikkan `ssh -X [nama kelompok]@[ip_sesuai_pembagian]`. <br>
-Contoh: `ssh -X b2@10.151.36.202`
+Contoh: `ssh -X b2@10.151.36.201`
 
 - Saat pertama kali ssh pastikan allow connection dengan mengetikkan **yes**
 
 - Kemudian masukkan password kelompok kalian
-
+// PERLU GANTI
 ![PuTTY Linux](/images/7.png) <br>
 
 ### Membuat Topologi Jaringan yang Akan Digunakan
+// PERLU GANTI
 ![Topologi](/images/8.PNG) <br>
 1. Setelah login, buat file script dengan ekstensi **.sh** yang akan digunakan untuk menyimpan script membuat **router, switch,** dan **klien**. Misalkan kita membuat file bernama **topologi.sh**.
 
@@ -66,6 +69,7 @@ dengan topologi yang diminta.
 
 
 4. Untuk topologi sesuai yang ada pada gambar, maka sintaks untuk file **topologi.sh** adalah sebagai berikut:
+// PERLU GANTI
 ![Script Topologi](/images/9.PNG) <br>
 
 ```shell
@@ -82,16 +86,19 @@ xterm -T PIZZA -e linux ubd0=PIZZA,jarkom umid=PIZZA eth0=daemon,,,switch2 mem=9
 
 # Klien
 xterm -T SOTO -e linux ubd0=SOTO,jarkom umid=SOTO eth0=daemon,,,switch1 mem=96M &
-xterm -T KARI -e linux ubd0=KARI,jarkom umid=KARI eth0=daemon,,,switch1 mem=96M &
+xterm -T KARI -e linux ubd0=KARI,jarkom umid=KARI eth0=daemon,,,switch1 mem=96M 
+
 ```
 **Keterangan:** Jangan lupa mengubah _**ip_tuntap_tiap_kelompok**_ terlebih dahulu dan sesuaikan dengan pembagian tiap kelompok masing-masing.
 
 
 5. Jalankan script **topologi.sh** dengan perintah `bash topologi.sh`
+// PERLU GANTI
 ![UML Login](/images/10.PNG) <br>
 
 
 6. Setelah muncul gambar seperti di atas, login pada masing-masing UML dengan menggunakan **Username = root** dan **Password = praktikum**. <br>
+// PERLU GANTI
 ![UML Login Success](/images/11.PNG) <br>
 
 
@@ -99,8 +106,29 @@ xterm -T KARI -e linux ubd0=KARI,jarkom umid=KARI eth0=daemon,,,switch1 mem=96M 
 
 
 8. Hilangkan tanda pagar (#) pada bagian `net.ipv4.ip_forward=1`
+// PERLU GANTI
 ![UML Sysctl](/images/12.PNG) <br>
 Lalu ketikka `sysctl -p` untuk mengaktifkan perubahan yang ada. Dengan mengaktifkan fungsi _**IP Forward**_ ini maka Linux nantinya dapat menentukan jalur mana yang dipilih untuk mencapai jaringan tujuan.
+
+
+### **PEMBAGIAN NID TUNTAP DAN NID DMZ**
+
+  KELOMPOK | NID TUNTAP | NID DMZ
+  ---------|------------|--------
+  A1 | 10.151.72.8/30 | 10.151.73.16/29
+  A2 | 10.151.72.12/30 | 10.151.73.24/29
+  A3 | 10.151.72.16/30 | 10.151.73.32/29
+  A4 | 10.151.72.20/30 | 10.151.73.40/29
+  A5 | 10.151.72.24/30 | 10.151.73.48/29
+  A6 | 10.151.72.28/30 | 10.151.73.56/29
+  A7 | 10.151.72.32/30 | 10.151.73.64/29
+
+**Keterangan:** <br>
+- **IP_eth0_BAKSO_tiap_kelompok** = NID_tuntap_tiap_kelompok + 2
+- **IP_tuntap_tiap_kelompok** = NID_tuntap_tiap_kelompok + 1
+- **IP_eth1_BAKSO_tiap_kelompok** = NID_DMZ_tiap_kelompok + 1
+- **IP_KATSU_tiap_kelompok** = NID_DMZ_tiap_kelompok + 2
+- **IP_PIZZA_tiap_kelompok** = NID_DMZ_tiap_kelompok + 3
 
 
 9. Setting IP pada setiap UML dengan mengetikkan `nano /etc/network/interfaces` Lalu setting IPnya sebagai berikut:
@@ -160,13 +188,6 @@ netmask 255.255.255.0
 gateway 192.168.0.1
 ```
 
-**Keterangan:** <br>
-- **IP_eth0_BAKSO_tiap_kelompok** = NID_tuntap_tiap_kelompok + 2
-- **IP_tuntap_tiap_kelompok** = NID_tuntap_tiap_kelompok + 1
-- **IP_eth1_BAKSO_tiap_kelompok** = NID_DMZ_tiap_kelompok + 1
-- **IP_KATSU_tiap_kelompok** = NID_DMZ_tiap_kelompok + 2
-- **IP_PIZZA_tiap_kelompok** = NID_DMZ_tiap_kelompok + 3
-
 **Penjelasan Pengertian:** <br>
 - **IP Tuntap:** TUN yang merupakan kependekan dari Tunneling mensimulasikan layer 3, sedangkan TAP yang berarti Network Tap mensimulasikan layer 2. TUN berfungsi untuk routing, sedangkan TAP berfungsi sebagai network bridge.
 - **Netmask:** Netmask adalah mask 32-bit yang digunakan untuk membagi alamat IP menjadi subnet dan menentukan host yang tersedia pada jaringan.
@@ -178,10 +199,12 @@ gateway 192.168.0.1
 
 
 11. Coba cek IP pada setiap UML dengan mengetikkan `ifconfig`. Jika sudah mendapatkan IP seperti gambar di bawah, maka setting IP yang kalian lakukan sudah benar.<br>
+// PERLU GANTI
 ![UML IP](/images/13.PNG) <br>
 
 
 12. Topologi yang dibuat sudah bisa berjalan secara lokal, tetapi kita belum bisa mengakses jaringan keluar. Ketikkan **`iptables –t nat –A POSTROUTING –o eth0 –j MASQUERADE –s 192.168.0.0/16`** pada router BAKSO.
+// PERLU GANTI
 ![UML Nat](/images/14.PNG) <br>
 **Keterangan:**
 - **iptables:** iptables merupakan suatu tools dalam sistem operasi Linux yang berfungsi sebagai filter terhadap lalu lintas data. Dengan iptables inilah kita akan mengatur semua lalu lintas dalam komputer, baik yang masuk, keluar, maupun yang sekadar melewati komputer kita. Untuk penjelasan lebih lanjut nanti akan dibahas pada Modul 5.
@@ -191,6 +214,7 @@ gateway 192.168.0.1
 
 
 13. Coba tes di semua UML dengan melakukan ping ke jaringan luar. Sebagai contoh coba `ping google.com` untuk mengecek apakah setting yang dilakukan sudah benar atau belum.
+// PERLU GANTI
 ![UML Ping](/images/15.PNG) <br>
 
 
@@ -214,16 +238,5 @@ uml_mconsole KARI halt
 ```
 Simpan script yang sudah dibuat kemudian jalankan dengan mengetikkan `bash bye.sh`
 
-# **PEMBAGIAN NID TUNTAP DAN NID DMZ**
-
-  KELOMPOK | NID TUNTAP | NID DMZ
-  ---------|------------|--------
-  A1 | 10.151.72.8/30 | 10.151.73.16/29
-  A2 | 10.151.72.12/30 | 10.151.73.24/29
-  A3 | 10.151.72.16/30 | 10.151.73.32/29
-  A4 | 10.151.72.20/30 | 10.151.73.40/29
-  A5 | 10.151.72.24/30 | 10.151.73.48/29
-  A6 | 10.151.72.28/30 | 10.151.73.56/29
-  A7 | 10.151.72.32/30 | 10.151.73.64/29
   
   
