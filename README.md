@@ -44,8 +44,7 @@ Contoh: `ssh -X a1@10.151.36.201`
 ![PuTTY Linux](/images/1.1.png) <br>
 
 ### Membuat Topologi Jaringan yang Akan Digunakan
-// PERLU GANTI
-![Topologi](/images/8.PNG) <br>
+![Topologi](/images/20.png) <br>
 
 ### **PEMBAGIAN NID TUNTAP DAN NID DMZ**
 
