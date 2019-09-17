@@ -24,16 +24,14 @@ Silahkan mendownload dari link berikut -> https://sourceforge.net/projects/xming
 - Kemudian pilih Open. Jika muncul gambar seperti di bawah: <br>
 ![PuTTY Warning](/images/4.PNG) <br>
 Klik **Yes** maka kemudian akan tampil window untuk login.
-// PERLU GANTI
-![PuTTY Login](/images/5.PNG) <br>
+![PuTTY Login](/images/10.1.PNG) <br>
 
 - Login dengan username **[nama kelompok]** dan password **praktikum**. <br>
 Contoh: <br>
 **Username -> a1** <br>
 **Password -> praktikum** <br>
 Jika berhasil maka akan muncul gambar seperti di bawah ini:
-// PERLU DIGANTI
-![PuTTY Login Success](/images/6.PNG)
+![PuTTY Login Success](/images/11.1.PNG)
 
 
 ### 2. Untuk Linux
